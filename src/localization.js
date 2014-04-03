@@ -81,7 +81,7 @@
      */
     function translate(msg) {
         if(typeof msg !== typeof '')
-            throw Error('localization.translate require a @string!');
+            throw new Error('localization.translate require a @string!');
 
         return msg in dictionary_ 
             ? dictionary_[msg] 
@@ -97,10 +97,10 @@
      */
     function dictionary(lang, dictionary){
         if(typeof lang !== typeof '')
-            throw Error('localization.dictionary param @lang is invalid');
+            throw new Error('localization.dictionary param @lang is invalid');
 
         if(typeof dictionary !== typeof {})
-            throw Error('localization.dictionary param @dictionary is invalid');
+            throw new Error('localization.dictionary param @dictionary is invalid');
 
         lang = lang.toLowerCase().trim();
 
@@ -111,10 +111,10 @@
             var addLangDict_ = dictionaries_.push(dictionary) - 1;
 
             if(addLangIndex_ != addLangDict_)
-                throw Error('localization.dictionary internal error(#1)!');
+                throw new Error('localization.dictionary internal error(#1)!');
         }else{
             if(index_ >= dictionaries_.length)
-                throw Error('localization.dictionary internal error(#2)!');
+                throw new Error('localization.dictionary internal error(#2)!');
 
             dictionaries_[index_] = dictionary;
         }
