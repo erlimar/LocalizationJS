@@ -1,5 +1,4 @@
-LocalizationJS
-==============
+<img align="center" src="https://raw.githubusercontent.com/erlimar/LocalizationJS/master/share/logo.png">
 
 Biblioteca JavaScript simples para localização
 
