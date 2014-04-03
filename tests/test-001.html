@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test 001</title>
+    <style type="text/css" media="screen">
+        body {
+            background-color:#eee;
+        }
+        .body {
+            border:solid 1px black;
+            margin:50px;
+            padding:50px;
+            font-size:16pt;
+        }
+        .message {
+            color:green;
+            font-size:22pt;
+            font-weight: bold;
+        }
+        .message .label {
+            font-weight: normal;
+            font-size:12pt;
+            color:#08f;
+        }
+        .message .text {
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <h1>LocalizationJS</h1>
+    <div class="body">
+        <p><strong>Idioma original:</strong> <span id="idiomaOriginal"></span></p>
+        <p><strong>Idioma configurado:</strong> <span id="idiomaConfigurado"></span></p>
+
+        <p class="message"><span class="label">Mensagem:</span><span class="text"></span></p>
+    </div>
+<script src="../src/localization.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+    localization.dictionary('en-US', {
+        'Olá': 'Hello',
+        'mundo': 'world',
+        'cruel!': 'cruel!'
+    });
+
+    var T = localization.translate;
+
+    $('#idiomaOriginal').text(localization.lang());
+    $('#idiomaConfigurado').text(localization.lang('en-US'));
+
+    $('p.message .text').text(T('Olá') + ' ' + T('mundo') + ' ' + T('cruel!'));
+
+    
+</script>
+</body>
+</html>
