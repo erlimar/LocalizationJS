@@ -7,6 +7,10 @@
         {
             "name": "Tests",
             "path": "./tests"
+        },
+        {
+            "name": "Project",
+            "path": "./"
         }
     ]
 }

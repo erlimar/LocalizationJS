@@ -199,16 +199,6 @@
 	},
 	"buffers":
 	[
-		{
-			"contents": "Package Control Messages\n========================\n\nMarkdownEditing:\n---------------\n\n  # MarkdownEditing 2.0.7 Changelog\n  \n  Your _MarkdownEditing_ plugin is updated. Enjoy new version. For any type of feedback you can use [GitHub issues][issues].\n  \n  ## Bug Fixes\n  \n  * Fix a Unix bug where pressing `Enter` twice in a list didn't work as expected ([#154][]).\n  \n  ## New Features\n  \n  * Fenced code blocks now supports Lisp. Fixes #156\n  * Added command for command palette to convert underlined (SETEXT) headers to hashed (ATX) headers. Works for both selections and whole document.\n  \n  [issues]: https://github.com/SublimeText-Markdown/MarkdownEditing/issues\n  [#154]: https://github.com/SublimeText-Markdown/MarkdownEditing/issues/154\n  \n",
-			"settings":
-			{
-				"buffer_size": 747,
-				"line_ending": "Windows",
-				"name": "Package Control Messages",
-				"scratch": true
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -466,37 +456,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 747,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								747,
-								747
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
