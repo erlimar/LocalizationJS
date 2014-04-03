@@ -35,7 +35,7 @@ localization.dictionary('en-US', {
 Pronto! Quando o usuário com um navegador configurado para o idioma 'en-US' acessar seu site, verá a
 mensagem traduzida para `Hello world!`!
 
-## 2.2. Se preferir
+### 2.2. Se preferir
 
 Se preferir, pode forçar um idioma para verificar o resultado.
 
