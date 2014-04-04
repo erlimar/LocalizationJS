@@ -8,8 +8,8 @@
         }
         .body {
             border:solid 1px black;
-            margin:50px;
-            padding:50px;
+            margin:20px;
+            padding:20px;
             font-size:16pt;
         }
         .message {
@@ -22,8 +22,11 @@
             font-size:12pt;
             color:#08f;
         }
-        .message .text {
+        .message .text1, .message .text2 {
             display:block;
+        }
+        .message .text2 {
+            color:red;
         }
     </style>
 </head>
@@ -32,24 +35,61 @@
     <div class="body">
         <p><strong>Idioma original:</strong> <span id="idiomaOriginal"></span></p>
         <p><strong>Idioma configurado:</strong> <span id="idiomaConfigurado"></span></p>
+        <p><strong>Número:</strong> <span id="numero"></span>
+            [<a href="#ab" class="plus">+</a>]
+            [<a href="#b" class="minus">-</a>]</p>
 
-        <p class="message"><span class="label">Mensagem:</span><span class="text"></span></p>
+        <p class="message"><span class="label">Mensagem:</span><span class="text1"></span></p>
+        <p class="message"><span class="label">Mensagem de opções:</span><span class="text2"></span></p>
     </div>
 <script src="../src/localization.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script>
+    // Obtendo o número via QUERY STRING, ou 1 se não houver QUERY STRING
+    var numero = (function(defaultValue){
+        var urlParts = window.location.toString().split('?');
+        if(!Array.isArray(urlParts) || 1 > urlParts.length)
+            return defaultValue;
+
+        var queryStrings = urlParts[urlParts.length - 1].toString().split('=');
+        if(!Array.isArray(queryStrings) || 1 > queryStrings.length)
+            return defaultValue;
+
+        var queryStringName = null;
+        for(var queryString in queryStrings) {
+            if(queryStringName === 'numero')
+                return parseInt(queryStrings[queryString]);
+            queryStringName = queryStrings[queryString];
+        }
+        return defaultValue;
+    })(1);
+
+    $('a.plus').attr('href', '?numero='+(numero+1));
+    $('a.minus').attr('href', '?numero='+(numero-1));
+    $('#numero').text(numero);
+
+    //
+    // LocalizationJS *** TEST BEGIN ***
+    //
+    var T = localization.translate;
     localization.dictionary('en-US', {
         'Olá': 'Hello',
         'mundo': 'world',
         'cruel!': 'cruel!'
     });
 
-    var T = localization.translate;
+    localization.rules( 'en-US', {
+
+    });
 
     $('#idiomaOriginal').text(localization.lang());
     $('#idiomaConfigurado').text(localization.lang('en-US'));
 
-    $('p.message .text').text(T('Olá') + ' ' + T('mundo') + ' ' + T('cruel!'));
+    $('p.message .text1').text(T('Olá') + ' ' + T('mundo') + ' ' + T('cruel!'));
+    $('p.message .text2').text(T(['Você tem {0} chance','Você tem {0} chances', 'Você tem {0} chanceses'], numero).replace('{0}', numero));
+    //
+    // LocalizationJS *** TEST END ***
+    //
 </script>
 </body>
 </html>

@@ -11,11 +11,28 @@
 (function Library(global, undefined){
     "use strict";
 
+/*
+ * TODO:
+ *
+ *  1) Modificar os vários arrays (languages_, dictionaries_, ruleSet_)
+ *     para um ÚNICO array de objetos.
+ *
+ *  2) Permitir o uso de REGIÃO e SUBREGIÃO, e usar REGIÃO padrão quando
+ *     a SUBREGIÃO não for encontrada.
+ *
+ *     Ex: pt-BR  (pt: Região, BR: Sub região)
+ *
+ *     - Se tivermos somente 'pt' cadastrado, e solicitarmos 'pt-BR',
+ *       'pt' é usado em seu lugar, por ser a REGIÃO.
+ */
+
     var originalLanguage_ = null,
         currentLanguage_ = null,
         languages_ = [],
         dictionary_ = {},
-        dictionaries_ = [];
+        dictionaries_ = [],
+        rules_ = {},
+        ruleSet_ = [];
 
     // Identificando o idioma atual do navegador, se disponível
     if(originalLanguage_ === null && navigator && navigator.language)
@@ -25,6 +42,26 @@
         originalLanguage_ = navigator.browserLanguage.toLowerCase();
 
     currentLanguage_ = originalLanguage_;
+
+    // Regras padrões
+    var defaultRules = {
+
+        /**
+         * Com base em um número determina o INDEX em um array de strings
+         * correspondente a expressão plural.
+         *
+         * Ex: Em pt-BR 1 é SINGULAR, >1 é PLURAL. Assim, só existem duas
+         *     opções possíveis, o INDEX estará sempre na faixa de 0..1.
+         *
+         *     Espera-se um array com com dois valores:
+         *     ARRAY => ['Singular', 'Plural'];
+         */
+        pluralIndex: function(number) {
+            return number > 1 ? 1 : 0;
+        }
+    };
+
+    rules_ = defaultRules;
 
     /**
      * @private
@@ -79,13 +116,32 @@
      * Faz a tradução de uma string para a localização atual. Caso a mesma
      * não esteja disponível, a própria mensagem é retornada.
      */
-    function translate(msg) {
-        if(typeof msg !== typeof '')
-            throw new Error('localization.translate require a @string!');
+    function translate(msg, pluralNumber) {
+        if(typeof msg !== typeof '' && !Array.isArray(msg))
+            throw new Error('localization.translate require a @string or @string[]!');
 
-        return msg in dictionary_ 
-            ? dictionary_[msg] 
-            : msg;
+        if(Array.isArray(msg) && typeof pluralNumber !== 'number')
+            throw new Error('localization.translate require a @pluralNumber for plural!');
+
+        // Tratamento para mensagem no singular
+        if(typeof msg === typeof '')
+            return msg in dictionary_ 
+                ? dictionary_[msg] 
+                : msg;
+
+        // Tratamento para mensagem no plural
+        if(typeof rules_.pluralIndex !== 'function')
+            throw new Error('localization.translate internal error(#1)!');
+
+        var pluralIndex_ = rules_.pluralIndex(pluralNumber);
+
+        if(typeof pluralIndex_ !== 'number')
+            throw new Error('localization.translate internal error(#2)!');
+
+        if(pluralIndex_ >= msg.length)
+            throw new Error('localization.translate @msg[] index out of bounds.');
+
+        return msg[pluralIndex_];
     };
 
     /**
@@ -122,11 +178,32 @@
         updateEnvironment();
     };
 
+    /**
+     * @public
+     *
+     * localization.rules
+     *
+     * Atribui as regras para uma determinada localidade
+     */
+     function rules(lang, rulesDef) {
+        // TODO: Implementar
+        if(typeof lang !== typeof '')
+            throw new Error('localization.rules param @lang is invalid');
+
+        if(typeof rulesDef !== typeof {})
+            throw new Error('localization.rules param @rulesDef is invalid');
+
+        lang = lang.toLowerCase().trim();
+
+        var index_ = languages_.indexOf(lang);
+     }
+
     // Publicando objeto global que disponibiliza a API
     global.localization = {
         lang: lang,
         translate: translate,
-        dictionary: dictionary
+        dictionary: dictionary,
+        rules: rules
     };
 
 })(this);
