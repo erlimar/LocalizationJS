@@ -123,25 +123,29 @@
         if(Array.isArray(msg) && typeof pluralNumber !== 'number')
             throw new Error('localization.translate require a @pluralNumber for plural!');
 
-        // Tratamento para mensagem no singular
+        // Tratamento para mensagem no plural
+        if(typeof pluralNumber === 'number' && Array.isArray(msg)) {
+
+            if(typeof rules_.pluralIndex !== 'function')
+                throw new Error('localization.translate internal error(#1)!');
+            
+            var pluralIndex_ = rules_.pluralIndex(pluralNumber);
+
+            if(typeof pluralIndex_ !== 'number')
+                throw new Error('localization.translate internal error(#3)!');
+
+            if(pluralIndex_ >= msg.length)
+                throw new Error('localization.translate @msg[] index out of bounds.');
+
+            msg = msg[pluralIndex_];
+        }
+        
         if(typeof msg === typeof '')
             return msg in dictionary_ 
                 ? dictionary_[msg] 
                 : msg;
 
-        // Tratamento para mensagem no plural
-        if(typeof rules_.pluralIndex !== 'function')
-            throw new Error('localization.translate internal error(#1)!');
-
-        var pluralIndex_ = rules_.pluralIndex(pluralNumber);
-
-        if(typeof pluralIndex_ !== 'number')
-            throw new Error('localization.translate internal error(#2)!');
-
-        if(pluralIndex_ >= msg.length)
-            throw new Error('localization.translate @msg[] index out of bounds.');
-
-        return msg[pluralIndex_];
+        throw new Error('localization.translate internal error(#4)!');
     };
 
     /**
