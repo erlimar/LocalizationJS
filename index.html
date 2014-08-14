@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Localization.js by erlimar</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/erlimar/LocalizationJS">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/erlimar/LocalizationJS/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/erlimar/LocalizationJS/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Localization.js</h1>
+          <p>Biblioteca JavaScript simples para localização</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/erlimar">erlimar</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <p><img align="center" src="https://raw.githubusercontent.com/erlimar/LocalizationJS/master/share/logo.png"></p>
+
+<p>Biblioteca JavaScript simples para localização</p>
+
+<h2>
+<a name="1-voc%C3%AA-desenvolve-normalmente-assim" class="anchor" href="#1-voc%C3%AA-desenvolve-normalmente-assim"><span class="octicon octicon-link"></span></a>1. Você desenvolve normalmente assim</h2>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="s1">'Alô mundo!'</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="2-prepare-o-ambiente" class="anchor" href="#2-prepare-o-ambiente"><span class="octicon octicon-link"></span></a>2. Prepare o ambiente</h2>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">T</span> <span class="o">=</span> <span class="nx">localization</span><span class="p">.</span><span class="nx">translate</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">message</span>  <span class="nx">T</span><span class="p">(</span><span class="s1">'Alô mundo!'</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</pre></div>
+
+<p>Tudo continua como está, mas o ambiente já está preparado.
+Supondo que você está em um navegador configurado para o idioma 'pt-BR'. Mas você deseja que
+usuários dos Estados Unidos vejam a mensagem em seu idioma quando acessarem seu site.</p>
+
+<h3>
+<a name="21-traduza-suas-mensagens" class="anchor" href="#21-traduza-suas-mensagens"><span class="octicon octicon-link"></span></a>2.1. Traduza suas mensagens</h3>
+
+<div class="highlight highlight-js"><pre><span class="nx">localization</span><span class="p">.</span><span class="nx">dictionary</span><span class="p">(</span><span class="s1">'en-US'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">'Alô mundo!'</span><span class="o">:</span> <span class="s1">'Hello world!'</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Pronto! Quando o usuário com um navegador configurado para o idioma 'en-US' acessar seu site, verá a
+mensagem traduzida para <code>Hello world!</code>!</p>
+
+<h3>
+<a name="22-se-preferir" class="anchor" href="#22-se-preferir"><span class="octicon octicon-link"></span></a>2.2. Se preferir</h3>
+
+<p>Se preferir, pode forçar um idioma para verificar o resultado.</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">localization</span><span class="p">.</span><span class="nx">lang</span><span class="p">(</span><span class="s1">'en-US'</span><span class="p">);</span>
+</pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
